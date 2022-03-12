@@ -16,79 +16,83 @@ struct ContentView: View {
     @ObservedObject var classifier: ImageClassifier
     
     var body: some View {
-        VStack{
-            HStack{
-                Image(systemName: "photo")
-                    .onTapGesture {
-                        isPresenting = true
-                        sourceType = .photoLibrary
-                    }
-                
-                Image(systemName: "camera")
-                    .onTapGesture {
-                        isPresenting = true
-                        sourceType = .camera
-                    }
-            }
-            .font(.title)
-            .foregroundColor(.blue)
-            
-            Rectangle()
-                .strokeBorder()
-                .foregroundColor(.yellow)
-                .overlay(
-                    Group {
-                        if uiImage != nil {
-                            Image(uiImage: uiImage!)
-                                .resizable()
-                                .scaledToFit()
-                        }
-                    }
-                )
-            
-            
+        NavigationView {
             VStack{
-                Button(action: {
-                    if uiImage != nil {
-                        classifier.detect(uiImage: uiImage!)
-                    }
-                }) {
-                    Image(systemName: "bolt.fill")
-                        .foregroundColor(.orange)
-                        .font(.title)
-                        .hidden()
-                }
-                
-                
-                Group {
-                    if let imageClass = classifier.imageClass {
-                        HStack{
-                            Text("Image categories:")
-                                .font(.caption)
-                            Text(imageClass)
-                                .bold()
+                HStack{
+                    Image(systemName: "photo")
+                        .onTapGesture {
+                            isPresenting = true
+                            sourceType = .photoLibrary
                         }
-                    } else {
-                        HStack{
-                            Text("Image categories: NA")
-                                .font(.caption)
+                        .foregroundColor(.blue)
+                        .padding(12)
+                        .background(.white)
+                        .clipShape(RoundedRectangle(cornerRadius: 20))
+                        .shadow(color: .black, radius: 5, x: 0, y: 5)
+                    
+                    Image(systemName: "camera")
+                        .onTapGesture {
+                            isPresenting = true
+                            sourceType = .camera
+                        }
+                        .foregroundColor(.blue)
+                        .padding(12)
+                        .background(.white)
+                        .clipShape(RoundedRectangle(cornerRadius: 20))
+                        .shadow(color: .black, radius: 5, x: 0, y: 5)
+                }
+                .font(.title)
+                .foregroundColor(.blue)
+                
+                Rectangle()
+                    .strokeBorder()
+                    .foregroundColor(.gray)
+                    .overlay(
+                        Group {
+                            if uiImage != nil {
+                                Image(uiImage: uiImage!)
+                                    .resizable()
+                                    .scaledToFit()
+                            }
+                        }
+                    )
+                
+                
+                VStack{
+                    Group {
+                        if let imageClass = classifier.imageClass {
+                            HStack{
+                                Text("Image categories:")
+                                    .font(.caption)
+                                    .foregroundColor(.blue)
+                                Text(imageClass)
+                                    .bold()
+                            }
+                        } else {
+                            HStack{
+                                Text("Please add an image")
+                                    .foregroundColor(.blue)
+                                    .font(.caption)
+                            }
                         }
                     }
+                    .font(.subheadline)
+                    .padding()
+                    
                 }
-                .font(.subheadline)
-                .padding()
-                
             }
-        }
-        .sheet(isPresented: $isPresenting){
-            ImagePicker(uiImage: $uiImage, isPresenting:  $isPresenting, sourceType: $sourceType)
-                .onDisappear{
-                    if uiImage != nil {
-                        classifier.detect(uiImage: uiImage!)
+            .sheet(isPresented: $isPresenting){
+                ImagePicker(uiImage: $uiImage, isPresenting:  $isPresenting, sourceType: $sourceType)
+                    .onDisappear{
+                        if uiImage != nil {
+                            classifier.detect(uiImage: uiImage!)
+                        }
                     }
-                }
+            }
+            .navigationTitle("DogsOrCats")
+            .padding()
         }
-        .padding()
+        .navigationViewStyle(.stack)
     }
 }
 
