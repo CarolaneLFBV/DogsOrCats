@@ -1,10 +1,3 @@
-//
-//  Classifier.swift
-//  DogsOrCats
-//
-//  Created on 12/03/2022.
-//
-
 import CoreML
 import Vision
 import CoreImage

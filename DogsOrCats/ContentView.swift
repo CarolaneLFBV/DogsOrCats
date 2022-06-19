@@ -1,11 +1,3 @@
-//
-//  ContentView.swift
-//  DogsOrCats
-//
-//  Created on 12/03/2022.
-//
-
-
 import SwiftUI
 
 struct ContentView: View {
