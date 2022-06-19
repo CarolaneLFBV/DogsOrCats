@@ -44,8 +44,12 @@ struct ContentView: View {
                 .font(.title)
                 .foregroundColor(.blue)
                 
+                Spacer()
+                    .frame(height: 50)
+                
                 Rectangle()
                     .strokeBorder()
+                    .frame(width: 308, height: 380)
                     .foregroundColor(.gray)
                     .overlay(
                         Group {
