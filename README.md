@@ -1,5 +1,4 @@
 # DogsOrCats
-# WORK IN PROGRESS
 DogsOrCats is an iOS application developed by myself. 
 Thanks to my very first project [Recip'IT](https://github.com/0cl132/RecipIT), I wanted to dig deeper on Swift and SwiftUI.
 That's why in this project, I have focused my knowledges on CoreML, in order to developed and learn more about Machine Learning, 
@@ -15,8 +14,5 @@ I have taken a short time to developed a pretty basic CoreML file with a few set
 
 # Features
 COMING SOON.
-
-
-# WORK IN PROGRESS
 
 
